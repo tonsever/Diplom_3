@@ -16,21 +16,27 @@ import tools.UserMethods;
 @RunWith(Parameterized.class)
 public class BurgersServicesRegistrationTest {
     private WebDriver driver;
-    private final String browser;
-    public BurgersServicesRegistrationTest (String browser) {this.browser=browser;}
+    private final String driverBin;
+    public BurgersServicesRegistrationTest (String driverBin) {this.driverBin=driverBin;}
 
     @Parameterized.Parameters
     public static Object[][] getParams() {
         return TestData.DATA;
+    }
+    @Before
+    public void startUp() {
+        System.setProperty(TestData.KEY_DRIVER,TestData.VALUE_PATH + driverBin);
+        driver = new ChromeDriver();
+        driver.get(TestData.URL);
     }
 
     @Test
     @DisplayName("Успешная регистрация")
     @Description("Все данные корректны")
     public void registrationPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
+        /*System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
         driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
+        driver.get("https://stellarburgers.nomoreparties.site/");*/
         HomePage homePage = new HomePage(driver);
         homePage.clickSignInButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -49,9 +55,9 @@ public class BurgersServicesRegistrationTest {
     @DisplayName("Ошибку для некорректного пароля")
     @Description("Пароль 5 символов")
     public void registrationIncorrectPasswordError() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
+        /*System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
         driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
+        driver.get("https://stellarburgers.nomoreparties.site/");*/
         HomePage homePage = new HomePage(driver);
         homePage.clickSignInButton();
         LoginPage loginPage = new LoginPage(driver);

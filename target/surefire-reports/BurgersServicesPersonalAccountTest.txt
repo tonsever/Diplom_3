@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: BurgersServicesPersonalAccountTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 63.764 s - in BurgersServicesPersonalAccountTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 78.171 s - in BurgersServicesPersonalAccountTest

@@ -15,8 +15,8 @@ import tools.UserMethods;
 @RunWith(Parameterized.class)
 public class BurgersServicesPersonalAccountTest {
     private WebDriver driver;
-    private final String browser;
-    public BurgersServicesPersonalAccountTest (String browser) {this.browser=browser;}
+    private final String driverBin;
+    public BurgersServicesPersonalAccountTest (String driverBin) {this.driverBin=driverBin;}
 
     @Parameterized.Parameters
     public static Object[][] getParams() {
@@ -27,15 +27,15 @@ public class BurgersServicesPersonalAccountTest {
     public void startUp() {
         UserMethods userMethods = new UserMethods();
         userMethods.create("Тон", "ton@mail.com", "123xxx");
+        System.setProperty(TestData.KEY_DRIVER,TestData.VALUE_PATH + driverBin);
+        driver = new ChromeDriver();
+        driver.get(TestData.URL);
     }
 
     @Test
     @DisplayName("Проверь переход по клику на «Личный кабинет»")
     @Description("Проверяем текст в личном кабинете")
     public void goToPersonalAccountPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -51,9 +51,6 @@ public class BurgersServicesPersonalAccountTest {
     @DisplayName("Проверь переход по клику на «Конструктор»")
     @Description("Проверяем заголовок «Соберите бургер»")
     public void fromPersonalAccountToConstructorClickConstructorButtonPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -71,9 +68,6 @@ public class BurgersServicesPersonalAccountTest {
     @DisplayName("Проверь переход по клику на логотип Stellar Burgers")
     @Description("Проверяем заголовок «Соберите бургер»")
     public void fromPersonalAccountToConstructorClickLogoPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -91,9 +85,6 @@ public class BurgersServicesPersonalAccountTest {
     @DisplayName("Проверь выход по кнопке «Выйти» в личном кабинете")
     @Description("Проверяем наличие кнопки «Войти»")
     public void logOutPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);

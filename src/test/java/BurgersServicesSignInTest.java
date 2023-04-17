@@ -15,9 +15,8 @@ import tools.UserMethods;
 @RunWith(Parameterized.class)
 public class BurgersServicesSignInTest {
     private WebDriver driver;
-    private final String browser;
-    public BurgersServicesSignInTest (String browser) {this.browser=browser;}
-
+    private final String driverBin;
+    public BurgersServicesSignInTest (String driverBin) {this.driverBin=driverBin;}
     @Parameterized.Parameters
     public static Object[][] getParams() {
         return TestData.DATA;
@@ -27,15 +26,15 @@ public class BurgersServicesSignInTest {
     public void startUp() {
         UserMethods userMethods = new UserMethods();
         userMethods.create("Тон", "ton@mail.com", "123xxx");
+        System.setProperty(TestData.KEY_DRIVER,TestData.VALUE_PATH + driverBin);
+        driver = new ChromeDriver();
+        driver.get(TestData.URL);
     }
 
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной")
     @Description("Все данные корректны")
     public void loginUsingSignInButtonPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickSignInButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -48,9 +47,6 @@ public class BurgersServicesSignInTest {
     @DisplayName("Вход через кнопку «Личный кабинет»")
     @Description("Все данные корректны")
     public void loginUsingPersonalAccountButtonPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -63,9 +59,6 @@ public class BurgersServicesSignInTest {
     @DisplayName("Вход через кнопку в форме регистрации")
     @Description("Все данные корректны")
     public void loginFromRegistrationPagePositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickSignInButton();
         LoginPage loginPage = new LoginPage(driver);
@@ -81,9 +74,6 @@ public class BurgersServicesSignInTest {
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     @Description("Все данные корректны")
     public void loginFromForgotPasswordPagePositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.clickSignInButton();
         LoginPage loginPage = new LoginPage(driver);

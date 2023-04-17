@@ -15,21 +15,24 @@ import tools.UserMethods;
 @RunWith(Parameterized.class)
 public class BurgersServicesConstructorTest {
     private WebDriver driver;
-    private final String browser;
-    public BurgersServicesConstructorTest (String browser) {this.browser=browser;}
+    private final String driverBin;
+    public BurgersServicesConstructorTest (String driverBin) {this.driverBin=driverBin;}
 
     @Parameterized.Parameters
     public static Object[][] getParams() {
         return TestData.DATA;
+    }
+    @Before
+    public void startUp() {
+        System.setProperty(TestData.KEY_DRIVER,TestData.VALUE_PATH + driverBin);
+        driver = new ChromeDriver();
+        driver.get(TestData.URL);
     }
 
     @Test
     @DisplayName("Переход в раздел Булки")
     @Description("Проверяем что раздел подсветился")
     public void scrollToBunsPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.scrollingConstructor("Булки");
         homePage.isSectionActive("Булки");
@@ -39,9 +42,6 @@ public class BurgersServicesConstructorTest {
     @DisplayName("Переход в раздел Соусы")
     @Description("Проверяем что раздел подсветился")
     public void scrollToSaucesPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.scrollingConstructor("Соусы");
         homePage.isSectionActive("Соусы");
@@ -51,9 +51,6 @@ public class BurgersServicesConstructorTest {
     @DisplayName("Переход в раздел Начинки")
     @Description("Проверяем что раздел подсветился")
     public void scrollToFillingsPositiveResult() {
-        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\"+browser+".exe");
-        driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/");
         HomePage homePage = new HomePage(driver);
         homePage.scrollingConstructor("Начинки");
         homePage.isSectionActive("Начинки");
